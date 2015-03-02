@@ -45,6 +45,16 @@ router.get('/articles/:id', function(req, res) {
  * Create an article
  */
 router.post('/articles', function (req, res) {
+	var title = req.body.title;
+	var body = req.body.body;
+	if(!body)
+	{
+		res.send(500);
+	}
+	var article = new model({title:title,body:body})
+	article.save(function(err) {
+});
+	res.send({message:"Created Successfully",article:article});
 });
 
 
@@ -53,7 +63,11 @@ router.post('/articles', function (req, res) {
  * Update article
  */
 router.put('/articles/:id', function (req, res) {
-
+	model.findOne({_id:req.params.id},function(err,docs)
+	{  
+		docs.title=req.body.title;
+		res.send({message:"Updated Successfully",article:docs});
+	});
 });
 
 
