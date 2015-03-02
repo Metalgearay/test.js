@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var model = require('../models/article');
-var db = model.Article;
-
 /**
  *
  *___ _____ _   ___ _____   _  _ ___ ___ ___
@@ -17,8 +15,11 @@ var db = model.Article;
  * List
  */
 router.get('/articles', function(req, res) {
-    res.json(db.asJSON());
-
+	model.find(function(err,docs)
+	{   console.log("Fucke you")
+		res.json(docs);
+	});
+	
 });
 
 
@@ -27,9 +28,14 @@ router.get('/articles', function(req, res) {
  */
 
 router.get('/articles/:id', function(req, res) {
-	db.find({title:req.params.id},function(err,docs)
-	{
-		res.json(docs.body);
+	model.findOne({_id:req.params.id},function(err,docs)
+	{  
+		if(err)
+		{
+			res.send(500);
+		}
+		res.json(docs);
+
 	});
 
 });
@@ -39,7 +45,6 @@ router.get('/articles/:id', function(req, res) {
  * Create an article
  */
 router.post('/articles', function (req, res) {
-    res.
 });
 
 
