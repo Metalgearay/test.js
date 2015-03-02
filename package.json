@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "test": "nodemon ./node_modules/.bin/mocha --reporter spec --timeout 500 test/*.test.js"
+    "test": "nodemon ./node_modules/.bin/mocha --reporter spec --timeout 500 test/*.test.js",
+     "test-win": "set NODE_ENV=test && node_modules\\.bin\\mocha"
   },
   "dependencies": {
     "express": "~4.0.0",

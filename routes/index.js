@@ -16,7 +16,7 @@ var model = require('../models/article');
  */
 router.get('/articles', function(req, res) {
 	model.find(function(err,docs)
-	{   console.log("Fucke you")
+	{   
 		res.json(docs);
 	});
 	
