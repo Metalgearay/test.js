@@ -13,21 +13,24 @@ function toString(array)
 }
 
 var ArticleSchema = new Schema({
-   title: {type:String, required:true},
-   body: {type:String, required:true},
-   tags: {type:[String], get:toString}
+   title:String,
+   body:String,
+   tags: {type:[], get:toString}
 });
+ArticleSchema.path("title").required(true);
+ArticleSchema.path("body").required(true);
+ArticleSchema.methods.asJSON= function(test)
+{   
+	return JSON.stringify(this);
+
+};
+ArticleSchema.statics.findByTitle = function(title,result)
+{ 
+	this.findOne({title: new RegExp(title,'i')},result);
+};
 
 
 Article = mongoose.model('Article', ArticleSchema);
-ArticleSchema.methods.asJSON= function(cb)
-{
-	return JSON.stringify(this.model('Article')),cb;
-}
-ArticleSchema.statics.findByTitle = function(title,result)
-{
-	this.find({title: new RegExp(title,'i')},result);
-}
 
 module.exports = Article;
 
